@@ -319,5 +319,3 @@ The application is ready for deployment with:
 
 ---
 
-**Built for Think41 Technologies Technical Assessment**  
-*Full Stack Engineer Position - 2025* 
