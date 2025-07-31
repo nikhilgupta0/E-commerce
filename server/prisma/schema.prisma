@@ -1,0 +1,137 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL") ?? "file:./dev.db"
+}
+
+model DistributionCenter {
+  id        Int      @id @default(autoincrement())
+  name      String
+  latitude  Float
+  longitude Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  products Product[]
+  inventoryItems InventoryItem[]
+
+  @@map("distribution_centers")
+}
+
+model Product {
+  id                    Int      @id @default(autoincrement())
+  cost                  Float
+  category              String
+  name                  String
+  brand                 String
+  retailPrice           Float    @map("retail_price")
+  department            String
+  sku                   String   @unique
+  distributionCenterId  Int      @map("distribution_center_id")
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  // Relations
+  distributionCenter    DistributionCenter @relation(fields: [distributionCenterId], references: [id])
+  orderItems           OrderItem[]
+  inventoryItems       InventoryItem[]
+
+  @@map("products")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  firstName     String   @map("first_name")
+  lastName      String   @map("last_name")
+  email         String   @unique
+  age           Int
+  gender        String
+  state         String
+  streetAddress String   @map("street_address")
+  postalCode    String   @map("postal_code")
+  city          String
+  country       String
+  latitude      Float
+  longitude     Float
+  trafficSource String   @map("traffic_source")
+  createdAt     DateTime @map("created_at") @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  orders        Order[]
+  orderItems    OrderItem[]
+
+  @@map("users")
+}
+
+model Order {
+  id          Int      @id @default(autoincrement()) @map("order_id")
+  userId      Int      @map("user_id")
+  status      String
+  gender      String
+  createdAt   DateTime @map("created_at") @default(now())
+  returnedAt  DateTime? @map("returned_at")
+  shippedAt   DateTime? @map("shipped_at")
+  deliveredAt DateTime? @map("delivered_at")
+  numOfItem   Int      @map("num_of_item")
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user        User         @relation(fields: [userId], references: [id])
+  orderItems  OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id               Int      @id @default(autoincrement())
+  orderId          Int      @map("order_id")
+  userId           Int      @map("user_id")
+  productId        Int      @map("product_id")
+  inventoryItemId  Int      @map("inventory_item_id")
+  status           String
+  createdAt        DateTime @map("created_at") @default(now())
+  shippedAt        DateTime? @map("shipped_at")
+  deliveredAt      DateTime? @map("delivered_at")
+  returnedAt       DateTime? @map("returned_at")
+  salePrice        Float    @map("sale_price")
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  order           Order          @relation(fields: [orderId], references: [id])
+  user            User           @relation(fields: [userId], references: [id])
+  product         Product        @relation(fields: [productId], references: [id])
+  inventoryItem   InventoryItem  @relation(fields: [inventoryItemId], references: [id])
+
+  @@map("order_items")
+}
+
+model InventoryItem {
+  id                        Int      @id @default(autoincrement())
+  productId                 Int      @map("product_id")
+  createdAt                 DateTime @map("created_at") @default(now())
+  soldAt                    DateTime? @map("sold_at")
+  cost                      Float
+  productCategory           String   @map("product_category")
+  productName               String   @map("product_name")
+  productBrand              String   @map("product_brand")
+  productRetailPrice        Float    @map("product_retail_price")
+  productDepartment         String   @map("product_department")
+  productSku                String   @map("product_sku")
+  productDistributionCenterId Int    @map("product_distribution_center_id")
+  updatedAt                 DateTime @updatedAt
+
+  // Relations
+  product                   Product    @relation(fields: [productId], references: [id])
+  distributionCenter        DistributionCenter @relation(fields: [productDistributionCenterId], references: [id])
+  orderItems               OrderItem[]
+
+  @@map("inventory_items")
+} 

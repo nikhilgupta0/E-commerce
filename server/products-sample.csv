@@ -1,0 +1,11 @@
+name,description,price,category,department,image,rating,stock
+"Wireless Bluetooth Headphones","High-quality wireless headphones with noise cancellation",89.99,Electronics,Electronics,"https://example.com/headphones.jpg",4.5,50
+"Organic Cotton T-Shirt","Comfortable organic cotton t-shirt in various colors",24.99,Clothing,Apparel,"https://example.com/tshirt.jpg",4.2,100
+"Smartphone Case","Durable protective case for smartphones",19.99,Accessories,Electronics,"https://example.com/case.jpg",4.0,75
+"Running Shoes","Lightweight running shoes with excellent cushioning",129.99,Footwear,Sports,"https://example.com/shoes.jpg",4.7,30
+"Kitchen Blender","High-speed blender for smoothies and food processing",79.99,Appliances,Home,"https://example.com/blender.jpg",4.3,25
+"Yoga Mat","Non-slip yoga mat for home workouts",34.99,Fitness,Sports,"https://example.com/yogamat.jpg",4.1,60
+"Desk Lamp","Adjustable LED desk lamp with touch controls",45.99,Furniture,Home,"https://example.com/lamp.jpg",4.4,40
+"Backpack","Waterproof backpack with laptop compartment",59.99,Bags,Apparel,"https://example.com/backpack.jpg",4.6,35
+"Wireless Mouse","Ergonomic wireless mouse with precision tracking",29.99,Electronics,Electronics,"https://example.com/mouse.jpg",4.0,80
+"Water Bottle","Insulated stainless steel water bottle",22.99,Accessories,Sports,"https://example.com/bottle.jpg",4.8,90 
